@@ -6,32 +6,33 @@
 package serwer;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serwer {
 
-    public static void main(String args[]) {
-        ServerSocket gnd;
-        Socket polaczenie;
-        OutputStream wyjscie;
-        PrintWriter komunikat;
+    String komunikat = "Cześć, to ja, Twój serwer.";
+    
+    public void doRoboty() {
+
         try {
-            gnd = new ServerSocket(6666);
-            System.out.println("Serwer testowy. Nasłuch: " + gnd);
-        
-            polaczenie = gnd.accept();
-            wyjscie = polaczenie.getOutputStream();
-            komunikat = new PrintWriter(wyjscie);
-            komunikat.print("Tu serwer. Czym mogę słuzyć?");
-       
-            polaczenie.close();
-            wyjscie.close();
-            komunikat.close();
+            ServerSocket gniazdoSerwera = new ServerSocket(6666);
+            while(true) {
+                Socket gniazdo = gniazdoSerwera.accept();
+                PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
+                nadawca.println(komunikat);
+                nadawca.close();
+                System.out.println("Do klienta wysłano komunikat: "+komunikat);
+            }
         } catch (IOException e) {
-            System.out.println("Problem z zamknięciem połączenia lub strumienia");
+            e.printStackTrace();
         }
+    }
+    
+    
+    public static void main(String args[]) {
+        Serwer serwerek = new Serwer();
+        serwerek.doRoboty();
     }
 }
