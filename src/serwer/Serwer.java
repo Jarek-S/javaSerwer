@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package serwer;
 
 /**
@@ -18,17 +17,16 @@ import java.net.*;
  * @author Agnieszka
  */
 public class Serwer {
-        private static ServerSocket gnd = null;
-        private static Socket polaczenie = null;
-        private static OutputStream wyjscie = null;
-        private static PrintWriter komunikat = null;
-    
-    public static void main(String args[]) {
 
+    public static void main(String args[]) {
+        ServerSocket gnd = null;
+        Socket polaczenie = null;
+        OutputStream wyjscie = null;
+        PrintWriter komunikat = null;
         try {
-            gnd = new ServerSocket(1111);
+            gnd = new ServerSocket(6666);
             System.out.println("Serwer testowy. Nasłuch na porcie 6666.");
-            System.out.println("IP : "+gnd.getInetAddress());
+            System.out.println("IP : " + gnd.getInetAddress());
         } catch (IOException e) {
             System.out.println("Problem z utworzeniem gniazda na serwerze");
         }
@@ -52,7 +50,7 @@ public class Serwer {
             }
             try {
                 if (komunikat != null) {
-                    komunikat.print("Tu serwer. Czym mogę słuzyć?");
+                    komunikat.println("Tu serwer. Czym mogę słuzyć?");
                 }
             } catch (Exception e) {
                 System.out.println("Nie można zapisać danych do strumienia wyjściowego");
