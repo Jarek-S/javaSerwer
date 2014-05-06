@@ -26,29 +26,15 @@ public class Serwer {
         try {
             gnd = new ServerSocket(6666);
             System.out.println("Serwer testowy. Nasłuch: " + gnd);
-            System.out.println("IP : " + gnd.getInetAddress());
         } catch (IOException e) {
             System.out.println("Problem z utworzeniem gniazda na serwerze");
         }
 
         try {
             polaczenie = gnd.accept();
-        } catch (IOException e) {
-            System.out.println("Nie udało się nawiązać połączenia z klientem");
-        }
-        try {
             wyjscie = polaczenie.getOutputStream();
-
-            if (wyjscie != null) {
-                komunikat = new PrintWriter(wyjscie);
-            }
-        } catch (Exception e) {
-            System.out.println("Nie można utworzyć obiektu wyjściowego");
-        }
-        try {
-            if (komunikat != null) {
-                komunikat.println("Tu serwer. Czym mogę słuzyć?");
-            }
+            komunikat = new PrintWriter(wyjscie);
+            komunikat.print("Tu serwer. Czym mogę słuzyć?");
         } catch (Exception e) {
             System.out.println("Nie można zapisać danych do strumienia wyjściowego");
         }
