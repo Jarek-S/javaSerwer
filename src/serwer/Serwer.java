@@ -5,41 +5,28 @@
  */
 package serwer;
 
-/**
- *
- * @author Agnieszka
- */
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-/**
- *
- * @author Agnieszka
- */
 public class Serwer {
 
     public static void main(String args[]) {
-        ServerSocket gnd = null;
-        Socket polaczenie = null;
-        OutputStream wyjscie = null;
-        PrintWriter komunikat = null;
+        ServerSocket gnd;
+        Socket polaczenie;
+        OutputStream wyjscie;
+        PrintWriter komunikat;
         try {
             gnd = new ServerSocket(6666);
             System.out.println("Serwer testowy. Nasłuch: " + gnd);
-        } catch (IOException e) {
-            System.out.println("Problem z utworzeniem gniazda na serwerze");
-        }
-
-        try {
+        
             polaczenie = gnd.accept();
             wyjscie = polaczenie.getOutputStream();
             komunikat = new PrintWriter(wyjscie);
             komunikat.print("Tu serwer. Czym mogę słuzyć?");
-        } catch (Exception e) {
-            System.out.println("Nie można zapisać danych do strumienia wyjściowego");
-        }
-
-        try {
+       
             polaczenie.close();
             wyjscie.close();
             komunikat.close();
