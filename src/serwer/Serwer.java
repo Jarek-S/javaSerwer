@@ -25,44 +25,40 @@ public class Serwer {
         PrintWriter komunikat = null;
         try {
             gnd = new ServerSocket(6666);
-            System.out.println("Serwer testowy. Nasłuch na porcie 6666.");
+            System.out.println("Serwer testowy. Nasłuch: " + gnd);
             System.out.println("IP : " + gnd.getInetAddress());
         } catch (IOException e) {
             System.out.println("Problem z utworzeniem gniazda na serwerze");
         }
-        while (true) {
-            try {
-                polaczenie = gnd.accept();
-            } catch (IOException e) {
-                System.out.println("Nie udało się nawiązać połączenia z klientem");
-            }
-            try {
-                wyjscie = polaczenie.getOutputStream();
-            } catch (IOException e) {
-                System.out.println("Nie ma danych wyjściowych");
-            }
-            try {
-                if (wyjscie != null) {
-                    komunikat = new PrintWriter(wyjscie);
-                }
-            } catch (Exception e) {
-                System.out.println("Nie można utworzyć obiektu wyjściowego");
-            }
-            try {
-                if (komunikat != null) {
-                    komunikat.println("Tu serwer. Czym mogę słuzyć?");
-                }
-            } catch (Exception e) {
-                System.out.println("Nie można zapisać danych do strumienia wyjściowego");
-            }
 
-            try {
-                polaczenie.close();
-                wyjscie.close();
-                komunikat.close();
-            } catch (IOException e) {
-                System.out.println("Problem z zamknięciem połączenia lub strumienia");
+        try {
+            polaczenie = gnd.accept();
+        } catch (IOException e) {
+            System.out.println("Nie udało się nawiązać połączenia z klientem");
+        }
+        try {
+            wyjscie = polaczenie.getOutputStream();
+
+            if (wyjscie != null) {
+                komunikat = new PrintWriter(wyjscie);
             }
+        } catch (Exception e) {
+            System.out.println("Nie można utworzyć obiektu wyjściowego");
+        }
+        try {
+            if (komunikat != null) {
+                komunikat.println("Tu serwer. Czym mogę słuzyć?");
+            }
+        } catch (Exception e) {
+            System.out.println("Nie można zapisać danych do strumienia wyjściowego");
+        }
+
+        try {
+            polaczenie.close();
+            wyjscie.close();
+            komunikat.close();
+        } catch (IOException e) {
+            System.out.println("Problem z zamknięciem połączenia lub strumienia");
         }
     }
 }
