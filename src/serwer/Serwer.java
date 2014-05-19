@@ -15,30 +15,31 @@ import java.net.Socket;
 public class Serwer {
 
     String komunikat = "Połączenie nawiązane";
-    
+
     public void doRoboty() {
 
         try {
             ServerSocket gniazdoSerwera = new ServerSocket(6666);
-            while(true) {
+            while (true) {
                 Socket gniazdo = gniazdoSerwera.accept();
                 PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
                 nadawca.println(komunikat);
+                nadawca.close();
                 
-                System.out.println("Do klienta wysłano komunikat: "+komunikat);
-                
+                System.out.println("Do klienta wysłano komunikat: " + komunikat);
+
                 InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
-            BufferedReader czytnik = new BufferedReader(czytnikStrumienia);
-            String komunikatKlienta = czytnik.readLine();
-            System.out.println(komunikatKlienta);
-            nadawca.close();
+                BufferedReader czytnik = new BufferedReader(czytnikStrumienia);
+                String komunikatKlienta = czytnik.readLine();
+                System.out.println(komunikatKlienta);
+                nadawca.close();
+                System.out.println("Połączenie zakończone");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
     public static void main(String args[]) {
         Serwer serwerek = new Serwer();
         serwerek.doRoboty();
