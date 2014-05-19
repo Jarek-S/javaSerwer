@@ -5,14 +5,16 @@
  */
 package serwer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serwer {
 
-    String komunikat = "Cześć, to ja, Twój serwer.";
+    String komunikat = "Połączenie nawiązane";
     
     public void doRoboty() {
 
@@ -22,8 +24,14 @@ public class Serwer {
                 Socket gniazdo = gniazdoSerwera.accept();
                 PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
                 nadawca.println(komunikat);
-                nadawca.close();
+                
                 System.out.println("Do klienta wysłano komunikat: "+komunikat);
+                
+                InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
+            BufferedReader czytnik = new BufferedReader(czytnikStrumienia);
+            String komunikatKlienta = czytnik.readLine();
+            System.out.println(komunikatKlienta);
+            nadawca.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
