@@ -24,14 +24,14 @@ public class Serwer {
                 PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
                 nadawca.println(komunikat);                
                 System.out.println("Do klienta wysłano komunikat: " + komunikat);
-                ObjectOutputStream so = new ObjectOutputStream(gniazdo.getOutputStream());
+                //ObjectOutputStream so = new ObjectOutputStream(gniazdo.getOutputStream());
                 Kokpit paczka = new Kokpit();
-                so.writeObject(paczka.pobierzPracownikow());
-                //nadawca.println(paczka.pobierzPracownikow());
-                nadawca.println("komunikat 2");
-                nadawca.println("komunikat 3");
-                nadawca.println("komunikat 4");
-                nadawca.println("komunikat 5");
+                //so.writeObject(paczka.pobierzPracownikow());
+                nadawca.println(paczka.pobierzPracownikow());
+                //nadawca.println("komunikat 2");
+                //nadawca.println("komunikat 3");
+                //nadawca.println("komunikat 4");
+                //nadawca.println("komunikat 5");
 
                 /*InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
                 BufferedReader czytnik = new BufferedReader(czytnikStrumienia);

@@ -5,20 +5,18 @@
  */
 package serwer;
 
+import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 /**
  *
  * @author Agnieszka
  */
-public class Kokpit {
+public class Kokpit implements Serializable {
 
     private final String DB_USER = "jarek";
     private final String DB_PASS = "1234";
@@ -58,14 +56,32 @@ public class Kokpit {
         }
     }
 
-    public ResultSet pobierzPracownikow() {
+    public String pobierzPracownikow() {
         ResultSet lista = null;
+        String zestaw = null;
         try {
             lista = zapytanie.executeQuery("SELECT * FROM pracownicy");
-            
+            while (lista.next()) {
+                zestaw = "Id               : " + lista.getInt("id_pracownika")
+                        + "\nImię             : " + lista.getString("imie")
+                        + "\nNazwisko         : " + lista.getString("nazwisko")
+                        + "\nWynagrodzenie    : " + lista.getString("pensja")
+                        + "\nStanowisko       : " + lista.getString("stanowisko")
+                        + "\nTelefon          : " + lista.getString("telefon");
+
+                if (lista.getString("stanowisko").equalsIgnoreCase("Dyrektor")) {
+                    zestaw += "\nDodatek służbowy : " + lista.getString("dodatek")
+                            + "\nKarta służbowa   : " + lista.getString("karta_nr")
+                            + "\nLimit kosztów    : " + lista.getString("limit");
+                } else {
+                    zestaw += "\nProwizja %       : " + lista.getString("prowizja")
+                            + "\nLimit prowizji   : " + lista.getString("limit");
+                }
+                zestaw += "\n"+LINIA+"\n";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lista;
+        return zestaw;
     }
 }
