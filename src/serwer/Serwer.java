@@ -5,9 +5,8 @@
  */
 package serwer;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,11 +22,12 @@ public class Serwer {
             while (true) {
                 Socket gniazdo = gniazdoSerwera.accept();
                 PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
-                nadawca.println(komunikat);
-                //nadawca.close();
-                
+                nadawca.println(komunikat);                
                 System.out.println("Do klienta wysłano komunikat: " + komunikat);
-                nadawca.println("komunikat 1");
+                ObjectOutputStream so = new ObjectOutputStream(gniazdo.getOutputStream());
+                Kokpit paczka = new Kokpit();
+                so.writeObject(paczka.pobierzPracownikow());
+                //nadawca.println(paczka.pobierzPracownikow());
                 nadawca.println("komunikat 2");
                 nadawca.println("komunikat 3");
                 nadawca.println("komunikat 4");
