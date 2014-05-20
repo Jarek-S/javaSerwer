@@ -24,14 +24,19 @@ public class Serwer {
                 Socket gniazdo = gniazdoSerwera.accept();
                 PrintWriter nadawca = new PrintWriter(gniazdo.getOutputStream());
                 nadawca.println(komunikat);
-                nadawca.close();
+                //nadawca.close();
                 
                 System.out.println("Do klienta wysłano komunikat: " + komunikat);
+                nadawca.println("komunikat 1");
+                nadawca.println("komunikat 2");
+                nadawca.println("komunikat 3");
+                nadawca.println("komunikat 4");
+                nadawca.println("komunikat 5");
 
-                InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
+                /*InputStreamReader czytnikStrumienia = new InputStreamReader(gniazdo.getInputStream());
                 BufferedReader czytnik = new BufferedReader(czytnikStrumienia);
                 String komunikatKlienta = czytnik.readLine();
-                System.out.println(komunikatKlienta);
+                System.out.println(komunikatKlienta);*/
                 nadawca.close();
                 System.out.println("Połączenie zakończone");
             }
