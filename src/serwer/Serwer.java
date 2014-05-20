@@ -38,6 +38,7 @@ public class Serwer {
                 String komunikatKlienta = czytnik.readLine();
                 System.out.println(komunikatKlienta);*/
                 nadawca.close();
+                paczka.closeConnection();
                 System.out.println("Połączenie zakończone");
             }
         } catch (IOException e) {

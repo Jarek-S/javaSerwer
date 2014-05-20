@@ -16,7 +16,7 @@ import java.sql.Statement;
  *
  * @author Agnieszka
  */
-public class Kokpit implements Serializable {
+public class Kokpit {
 
     private final String DB_USER = "jarek";
     private final String DB_PASS = "1234";
