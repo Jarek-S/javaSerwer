@@ -17,18 +17,17 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class SerwerRMI {
 
-    public SerwerRMI(){
+    public SerwerRMI() {
     }
-    
-        public static void main(String args[]) {
+
+    public static void main(String args[]) {
 
         try {
             Registry registry = LocateRegistry.createRegistry(7777);
             ManagerImpl rmi = new ManagerImpl();
             registry.rebind("Zarządca", rmi);
             System.out.println("Serwer RMI czeka na żądanie...");
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
