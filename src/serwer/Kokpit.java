@@ -58,11 +58,11 @@ public class Kokpit {
 
     public String pobierzPracownikow() {
         ResultSet lista = null;
-        String zestaw = null;
+        String zestaw = "";
         try {
             lista = zapytanie.executeQuery("SELECT * FROM pracownicy");
             while (lista.next()) {
-                zestaw = "Id               : " + lista.getInt("id_pracownika")
+                zestaw += "Id               : " + lista.getInt("id_pracownika")
                         + "\nImię             : " + lista.getString("imie")
                         + "\nNazwisko         : " + lista.getString("nazwisko")
                         + "\nWynagrodzenie    : " + lista.getString("pensja")
